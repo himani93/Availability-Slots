@@ -106,3 +106,8 @@ class TestWeekSchedule(object):
         available_schedule = party_schedule.get_available_day_schedule(current_time)
         assert available_schedule == []
 
+        current_time = datetime.datetime(2018, 03, 8, 9, 45)  # Thursday
+        available_schedule = party_schedule.get_available_day_schedule(current_time)
+        assert available_schedule == [
+            (datetime.datetime.combine(current_time.date(), datetime.time(10, 00)), datetime.datetime.combine(current_time.date(), datetime.time(10, 30))),
+        ]
