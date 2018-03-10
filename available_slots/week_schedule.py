@@ -21,3 +21,8 @@ class WeekSchedule(object):
 
     def __repr__(self):
         return "WeekSchedule({})".format(self._schedule)
+
+    def get_weekday_schedule(self, weekday):
+        if not (0 <= weekday <= 6):
+            return InvalidWeekdayException("Invalid weekday passed: {}".format(weekday))
+        return self._schedule[weekday]

@@ -50,3 +50,28 @@ class TestWeekSchedule(object):
         }
 
         assert WeekSchedule(schedule)._schedule == expected_schedule
+
+    def test_weekday_schedule(self):
+        assert WeekSchedule([]).get_weekday_schedule(0) == []
+
+        schedule = [
+            [  # Monday
+                {"start_time": "06:00", "end_time": "06:30"},
+                {"start_time": "06:30", "end_time": "07:00"},
+            ], [  # Tuesday
+            ], [  # Wednesday
+                {"start_time": "06:00", "end_time": "06:30"},
+            ], [  # Thursday
+                {"start_time": "09:00", "end_time": "09:30"},
+                {"start_time": "09:30", "end_time": "10:00"},
+                {"start_time": "10:00", "end_time": "10:30"},
+            ], [  # Friday
+            ], [  # Saturday
+            ], [  # Sunday
+            ]
+        ]
+        party_schedule = WeekSchedule(schedule)
+        assert party_schedule.get_weekday_schedule(1) == []
+        assert party_schedule.get_weekday_schedule(2) == [
+            {datetime.time(6, 0), datetime.time(6, 30)}
+        ]
