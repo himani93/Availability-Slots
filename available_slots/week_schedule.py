@@ -8,6 +8,9 @@ class WeekSchedule(object):
         WEEKDAYS = 7
         self._schedule = defaultdict(list)
 
+        for weekday in range(WEEKDAYS):
+            self._schedule[weekday] = []
+
         if schedule:
             weekday = 0
             for day_schedule in schedule[:WEEKDAYS]:
@@ -15,9 +18,6 @@ class WeekSchedule(object):
                     start_time, end_time = datetime.time(slot["start_time"]), datetime.time(slot["end_time"])
                     self._schedule[weekday].append({start_time, end_time})
                 weekday += 1
-        else:
-            for weekday in range(WEEKDAYS):
-                self._schedule[weekday] = []
 
     def __repr__(self):
         return "WeekSchedule({})".format(self._schedule)
