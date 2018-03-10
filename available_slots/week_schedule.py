@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from collections import defaultdict
 
@@ -15,7 +15,7 @@ class WeekSchedule(object):
             weekday = 0
             for day_schedule in schedule[:WEEKDAYS]:
                 for slot in day_schedule:
-                    start_time, end_time = datetime.time(slot["start_time"]), datetime.time(slot["end_time"])
+                    start_time, end_time = datetime.strptime(slot["start_time"], "%H:%M").time(), datetime.strptime(slot["end_time"], "%H:%M").time()
                     self._schedule[weekday].append({start_time, end_time})
                 weekday += 1
 
