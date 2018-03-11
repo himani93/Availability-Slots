@@ -4,10 +4,9 @@ Solution to Availability Slots
 Usage:
 ------
 
-1. `tar -xf tar -xf ThumbScraper-0.1.tar.gz`
-2. `cd AvailableSlots`
-3. `python setup.py install`
-4. If slots required from current time use:
+1. `cd AvailableSlots`
+2. `python setup.py install`
+3. If slots required from current time use:
 
    `available-slots --schedule_file <location_of_json_input> --number_of_slots <number_of_slots>`
 
