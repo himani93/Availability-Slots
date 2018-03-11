@@ -51,7 +51,7 @@ class WeekSchedule(object):
         day = from_time
         remaining_slots = slots
         checked_weekdays = 0
-        # from pdb import set_trace; set_trace()
+
         while remaining_slots > 0:
             available_day_schedule = self.get_available_day_schedule(day)
             day_schedule = available_day_schedule[:remaining_slots]

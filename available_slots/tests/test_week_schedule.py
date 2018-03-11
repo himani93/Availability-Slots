@@ -178,3 +178,8 @@ class TestWeekSchedule(object):
         party_schedule = WeekSchedule(schedule)
         available_schedule = party_schedule.get_n_available_schedule(1, current_time)
         assert available_schedule == [(datetime.datetime(2018, 3, 13, 4, 0), datetime.datetime(2018, 3, 13, 4, 30))]
+
+        available_schedule = party_schedule.get_n_available_schedule(2, current_time)
+        assert available_schedule == [(datetime.datetime(2018, 3, 13, 4, 0), datetime.datetime(2018, 3, 13, 4, 30)),
+        (datetime.datetime(2018, 3, 20, 4, 0), datetime.datetime(2018, 3, 20, 4, 30))]
+
