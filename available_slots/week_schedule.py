@@ -5,6 +5,7 @@ from datetime import (
 )
 
 from collections import defaultdict
+from available_slots.exceptions import *
 
 
 class WeekSchedule(object):
@@ -61,7 +62,7 @@ class WeekSchedule(object):
 
             day = datetime.combine((day.date() + timedelta(days=1)), time(0, 0))
             checked_weekdays += 1
-            if checked_weekdays > 7 and remaining_slots:
+            if checked_weekdays > 7 and not available_slots:
                 break
 
         return available_slots
