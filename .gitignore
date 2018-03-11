@@ -1,3 +1,7 @@
 *_venv/*
 *pyc
 .pytest_cache/
+
+*/build/
+*/dist/
+*.egg-info
