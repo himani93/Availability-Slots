@@ -23,6 +23,6 @@ setup(name='Availability Slots',
       setup_require=['pytest-runner'],
       include_package_data=True,
       entry_points={
-          'console_scripts': ['availabile-slots=available_slots.main:main'],
+          'console_scripts': ['available-slots=available_slots.main:main'],
       },
       zip_safe=False)

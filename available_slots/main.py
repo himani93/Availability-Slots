@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import json
+import pprint
 import sys
 
 from week_schedule import WeekSchedule
@@ -43,7 +44,7 @@ def main():
     schedule = read_json_file(schedule_file)
 
     available_schedule = WeekSchedule(schedule).get_n_available_schedule(slots, datetime.datetime.now())
-    print format_schedule(available_schedule)
+    pprint.pprint(format_schedule(available_schedule))
 
 
 if __name__ == "__main__":
