@@ -1,4 +1,8 @@
-from datetime import datetime
+from datetime import (
+    datetime,
+    timedelta,
+    time,
+)
 
 from collections import defaultdict
 
@@ -39,3 +43,26 @@ class WeekSchedule(object):
                 available_schedule.append(available_day_slot)
 
         return available_schedule
+
+    def get_n_available_schedule(self, slots, from_time):
+        available_slots = []
+
+        day = from_time
+        remaining_slots = slots
+        checked_weekdays = 0
+
+        while remaining_slots:
+            available_day_schedule = self.get_available_day_schedule(day)
+            day_schedule = available_day_schedule[:remaining_slots]
+
+            if day_schedule:
+                available_slots.extend(day_schedule)
+
+            remaining_slots -= len(day_schedule)
+            day = datetime.combine((day.date() + timedelta(days=1)), time(0, 0))
+            checked_weekdays += 1
+
+            if checked_weekdays == 7 and remaining_slots:
+                break
+
+        return available_slots

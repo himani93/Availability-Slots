@@ -76,7 +76,7 @@ class TestWeekSchedule(object):
             (datetime.time(6, 0), datetime.time(6, 30))
         ]
 
-    def test_available_weekday_schedule(self):
+    def test_available_day_schedule(self):
         current_time = datetime.datetime(2018, 03, 10, 0, 0)
         schedule = [
             [  # Monday
@@ -111,3 +111,26 @@ class TestWeekSchedule(object):
         assert available_schedule == [
             (datetime.datetime.combine(current_time.date(), datetime.time(10, 00)), datetime.datetime.combine(current_time.date(), datetime.time(10, 30))),
         ]
+
+    def test_n_available_schedule(self):
+        current_time = datetime.datetime(2018, 03, 10, 0, 0)
+        schedule = [
+            [  # Monday
+                {"start_time": "06:00", "end_time": "06:30"},
+                {"start_time": "06:30", "end_time": "07:00"},
+            ], [  # Tuesday
+            ], [  # Wednesday
+                {"start_time": "06:00", "end_time": "06:30"},
+            ], [  # Thursday
+                {"start_time": "09:00", "end_time": "09:30"},
+                {"start_time": "09:30", "end_time": "10:00"},
+                {"start_time": "10:00", "end_time": "10:30"},
+            ], [  # Friday
+            ], [  # Saturday
+            ], [  # Sunday
+            ]
+        ]
+        party_schedule = WeekSchedule(schedule)  # Saturday
+        available_schedule = party_schedule.get_n_available_schedule(1, current_time)
+        assert available_schedule == [(datetime.datetime(2018, 03, 12, 6, 0), datetime.datetime(2018, 3, 12, 6, 30))]
+
