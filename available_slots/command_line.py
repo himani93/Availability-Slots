@@ -4,7 +4,8 @@ import json
 import pprint
 import sys
 
-from week_schedule import WeekSchedule
+from available_slots.week_schedule import WeekSchedule
+from available_slots.exceptions import *
 
 
 def read_json_file(file_path):
@@ -34,6 +35,9 @@ def main():
     parser.add_argument('--number_of_slots', dest='slots', required=True, type=int,
                         help="Number of available schedule to be retreived")
 
+    parser.add_argument('--time', dest='time', required=False,
+                        help="The time from which available slots should be found. Format of time should be YYYY-MM-DD HH:MM")
+
     if len(sys.argv) < 1:
         parser.print_help()
         sys.exit(1)
@@ -41,9 +45,17 @@ def main():
     schedule_file =  parser.parse_args().schedule_file
     slots = parser.parse_args().slots
 
+    if parser.parse_args().time:
+        try:
+            from_time = datetime.datetime.strptime(parser.parse_args().time, "%Y-%m-%d %H:%M")
+        except Exception as e:
+            raise InvalidDateFormatException("Date: {} should be of format: YYYY-MM-DD HH:mm".format(parser.parse_args().time))
+    else:
+        from_time = datetime.datetime.now()
+
     schedule = read_json_file(schedule_file)
 
-    available_schedule = WeekSchedule(schedule).get_n_available_schedule(slots, datetime.datetime.now())
+    available_schedule = WeekSchedule(schedule).get_n_available_schedule(slots, from_time)
     pprint.pprint(format_schedule(available_schedule))
 
 
