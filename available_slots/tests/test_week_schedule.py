@@ -134,3 +134,31 @@ class TestWeekSchedule(object):
         available_schedule = party_schedule.get_n_available_schedule(1, current_time)
         assert available_schedule == [(datetime.datetime(2018, 03, 12, 6, 0), datetime.datetime(2018, 3, 12, 6, 30))]
 
+        available_schedule = party_schedule.get_n_available_schedule(3, current_time)
+        assert available_schedule == [(datetime.datetime(2018, 03, 12, 6, 0), datetime.datetime(2018, 3, 12, 6, 30)),
+                                      (datetime.datetime(2018, 03, 12, 6, 30), datetime.datetime(2018, 3, 12, 7, 0)),
+                                      (datetime.datetime(2018, 03, 14, 6, 0), datetime.datetime(2018, 3, 14, 6, 30))]
+
+        current_time = datetime.datetime(2018, 03, 8, 9, 45)
+        available_schedule = party_schedule.get_n_available_schedule(1, current_time)
+        assert available_schedule == [(datetime.datetime(2018, 03, 8, 10, 0), datetime.datetime(2018, 3, 8, 10, 30))]
+
+        current_time = datetime.datetime(2018, 03, 8, 9, 0)
+        available_schedule = party_schedule.get_n_available_schedule(1, current_time)
+        assert available_schedule == [(datetime.datetime(2018, 03, 8, 9, 0), datetime.datetime(2018, 3, 8, 9, 30))]
+
+    def test_get_schedule_when_empty(self):
+        schedule = [
+            [  # Monday
+            ], [  # Tuesday
+            ], [  # Wednesday
+            ], [  # Thursday
+            ], [  # Friday
+            ], [  # Saturday
+            ], [  # Sunday
+            ]
+        ]
+        current_time = datetime.datetime(2018, 3, 11, 3, 9)
+        party_schedule = WeekSchedule(schedule)  # Saturday
+        available_schedule = party_schedule.get_n_available_schedule(1, current_time)
+        assert available_schedule == []

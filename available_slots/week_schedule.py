@@ -50,19 +50,18 @@ class WeekSchedule(object):
         day = from_time
         remaining_slots = slots
         checked_weekdays = 0
-
-        while remaining_slots:
+        # from pdb import set_trace; set_trace()
+        while remaining_slots > 0:
             available_day_schedule = self.get_available_day_schedule(day)
             day_schedule = available_day_schedule[:remaining_slots]
 
             if day_schedule:
                 available_slots.extend(day_schedule)
+                remaining_slots -= len(day_schedule)
 
-            remaining_slots -= len(day_schedule)
             day = datetime.combine((day.date() + timedelta(days=1)), time(0, 0))
             checked_weekdays += 1
-
-            if checked_weekdays == 7 and remaining_slots:
+            if checked_weekdays > 7 and remaining_slots:
                 break
 
         return available_slots
