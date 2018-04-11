@@ -26,7 +26,7 @@ def format_schedule(schedule):
     return formatted_schedule
 
 def main():
-    parser = argparse.ArgumentParser(description="Healthify Me Availability Slots",
+    parser = argparse.ArgumentParser(description="Availability Slots",
                                      add_help=True,
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--schedule_file', dest='schedule_file', required=True,
